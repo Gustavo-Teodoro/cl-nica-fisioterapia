@@ -70,9 +70,6 @@ export default function Layout({ children, title }) {
       </header>
 
       <main className="flex-1 p-3 md:p-5 pb-24">
-        {title && (
-          <h1 className="text-lg font-semibold text-text mb-4">{title}</h1>
-        )}
         {children}
       </main>
 
