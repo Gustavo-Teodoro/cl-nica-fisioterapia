@@ -6,7 +6,6 @@ import Configuracoes  from './pages/Configuracoes'
 import Evolucoes      from './pages/Evolucoes'
 import Financeiro     from './pages/Financeiro'
 import ImportarFicha  from './pages/ImportarFicha'
-import Dashboard      from './pages/Dashboard'
 
 function RotaProtegida({ children }) {
   const auth = localStorage.getItem('auth')
@@ -38,7 +37,6 @@ export default function App() {
       <Route path="/financeiro"                  element={<RotaFinanceiro><Financeiro /></RotaFinanceiro>} />
       <Route path="/configuracoes"               element={<RotaAdmin><Configuracoes /></RotaAdmin>} />
       <Route path="/importar-ficha"              element={<RotaProtegida><ImportarFicha /></RotaProtegida>} />
-      <Route path="/dashboard"                   element={<RotaProtegida><Dashboard /></RotaProtegida>} />
       <Route path="*"                            element={<Navigate to="/agenda" replace />} />
     </Routes>
   )

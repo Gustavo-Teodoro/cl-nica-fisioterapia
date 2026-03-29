@@ -6,12 +6,6 @@ const IconAgenda = () => (
     <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
   </svg>
 )
-const IconDash = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-  </svg>
-)
 const IconFinanceiro = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
     <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -42,11 +36,10 @@ export default function Layout({ children, title }) {
   const logout = () => { localStorage.removeItem('auth'); navigate('/login') }
 
   const navItems = [
-    { path: '/agenda',         label: 'Agenda',    icon: <IconAgenda />,     show: !isContador },
-    { path: '/dashboard',      label: 'Dashboard', icon: <IconDash />,       show: true },
-    { path: '/financeiro',     label: 'Financeiro',icon: <IconFinanceiro />, show: isAdmin || isContador },
-    { path: '/importar-ficha', label: 'Importar',  icon: <IconImportar />,   show: isAdmin || !isContador },
-    { path: '/configuracoes',  label: 'Config.',   icon: <IconConfig />,     show: isAdmin },
+    { path: '/agenda',         label: 'Agenda',     icon: <IconAgenda />,     show: !isContador },
+    { path: '/financeiro',     label: 'Financeiro', icon: <IconFinanceiro />, show: isAdmin || isContador },
+    { path: '/importar-ficha', label: 'Importar',   icon: <IconImportar />,   show: isAdmin || !isContador },
+    { path: '/configuracoes',  label: 'Config.',    icon: <IconConfig />,     show: isAdmin },
   ].filter(i => i.show)
 
   return (
@@ -83,12 +76,12 @@ export default function Layout({ children, title }) {
         {children}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-sidebar border-t border-white/10 flex items-center justify-center gap-4 px-2 z-50 h-16">
+      <nav className="fixed bottom-0 left-0 right-0 bg-sidebar border-t border-white/10 flex items-center justify-center gap-2 px-2 z-50 h-16">
         {navItems.map(item => {
           const ativo = pagina === item.path
           return (
             <button key={item.path} onClick={() => navigate(item.path)}
-              className={`flex flex-col items-center justify-center gap-1 py-2 px-3 rounded-xl transition-all
+              className={`flex flex-col items-center justify-center gap-1 py-2 px-6 rounded-xl transition-all
                 ${ativo ? 'text-white bg-white/10' : 'text-white/45 hover:text-white/80'}`}>
               {item.icon}
               <span className="text-[10px] font-medium">{item.label}</span>

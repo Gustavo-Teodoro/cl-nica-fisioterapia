@@ -5,7 +5,7 @@ import Modal, { Campo } from '../components/Modal'
 import {
   getPacientes, criarPaciente,
   getAgendamentos, criarAgendamento, editarAgendamento, excluirAgendamento,
-  checkinAgendamento,
+  checkinAgendamento, getDashboard,
 } from '../services/api'
 
 const MESES   = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
@@ -60,13 +60,15 @@ export default function Pacientes() {
   const [stepPac,  setStepPac]  = useState(1)
   const [sugestoes,setSugestoes]= useState([])
   const [mostrarSug,setMostrarSug]=useState(false)
+  const [alertas,   setAlertas]   = useState([])
 
   const carregar = async (a, m) => {
     const anoAtual = a || mesAtual.getFullYear()
     const mesAtual_ = m || (mesAtual.getMonth() + 1)
-    const [ps, as] = await Promise.all([getPacientes(), getAgendamentos(anoAtual, mesAtual_)])
+    const [ps, as, dash] = await Promise.all([getPacientes(), getAgendamentos(anoAtual, mesAtual_), getDashboard()])
     setPacientes(ps)
     setAgendamentos(as)
+    setAlertas(dash.alertas || [])
   }
   useEffect(() => { carregar() }, [mesAtual])
 
@@ -138,6 +140,24 @@ export default function Pacientes() {
   return (
     <Layout title="Agenda">
       <div className="max-w-3xl mx-auto w-full">
+
+        {/* Alertas inteligentes */}
+        {alertas.length > 0 && (
+          <div className="flex flex-col gap-2 mb-4">
+            {alertas.map((a, i) => (
+              <div key={i}
+                onClick={() => a.paciente_id && navigate(`/pacientes/${a.paciente_id}`)}
+                className={`rounded-xl px-4 py-3 flex items-start gap-3 text-sm font-medium
+                  ${a.nivel === 'urgente'
+                    ? 'bg-red-50 border border-red-200 text-red-800 ' + (a.paciente_id ? 'cursor-pointer hover:bg-red-100' : '')
+                    : 'bg-amber-50 border border-amber-200 text-amber-800 ' + (a.paciente_id ? 'cursor-pointer hover:bg-amber-100' : '')
+                  }`}>
+                <span className="flex-shrink-0">{a.nivel === 'urgente' ? '🚨' : '⚠️'}</span>
+                <span>{a.mensagem}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Barra superior */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-4 md:mb-6">
