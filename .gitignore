@@ -1,0 +1,24 @@
+# Banco de dados
+clinica.db
+
+# Ambiente virtual
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Media (exames dos pacientes)
+media/
+
+# Build do frontend
+staticfiles/assets/
+node_modules/
+
+# Variáveis de ambiente
+.env
+
+# Sistema
+.DS_Store
+Thumbs.db
