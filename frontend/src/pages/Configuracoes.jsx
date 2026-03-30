@@ -6,6 +6,7 @@ const PERFIS = [
   { value: 'admin',    label: 'Administrador', desc: 'Acesso total ao sistema' },
   { value: 'clinica',  label: 'Clínica',       desc: 'Agenda e pacientes' },
   { value: 'contador', label: 'Contador',       desc: 'Somente financeiro' },
+  { value: 'demo',     label: 'Demo',           desc: 'Visualização completa sem configurações' },
 ]
 
 const VAZIO = { usuario: '', senha: '', nome: '', perfil: 'clinica', ativo: true }
@@ -72,6 +73,7 @@ export default function Configuracoes() {
   const badgePerfil = (perfil) => {
     if (perfil === 'admin')    return 'tag tag-green'
     if (perfil === 'contador') return 'tag tag-amber'
+    if (perfil === 'demo')     return 'tag tag-blue'
     return 'tag tag-blue'
   }
   const labelPerfil = (perfil) => PERFIS.find(p => p.value === perfil)?.label || perfil
@@ -135,6 +137,7 @@ export default function Configuracoes() {
               { perfil: 'admin',    cor: 'tag-green', itens: ['Agenda e pacientes', 'Financeiro', 'Gerenciar usuários'] },
               { perfil: 'clinica',  cor: 'tag-blue',  itens: ['Agenda e pacientes'] },
               { perfil: 'contador', cor: 'tag-amber',  itens: ['Somente financeiro'] },
+              { perfil: 'demo',     cor: 'tag-blue',  itens: ['Agenda e pacientes', 'Financeiro', 'Importar ficha'] },
             ].map(({ perfil, cor, itens }) => (
               <div key={perfil} className="flex items-start gap-3">
                 <span className={`tag ${cor} flex-shrink-0 mt-0.5`}>{labelPerfil(perfil)}</span>

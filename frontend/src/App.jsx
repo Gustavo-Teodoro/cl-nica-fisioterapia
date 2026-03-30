@@ -6,6 +6,7 @@ import Configuracoes  from './pages/Configuracoes'
 import Evolucoes      from './pages/Evolucoes'
 import Financeiro     from './pages/Financeiro'
 import ImportarFicha  from './pages/ImportarFicha'
+import Dashboard      from './pages/Dashboard'
 
 function RotaProtegida({ children }) {
   const auth = localStorage.getItem('auth')
@@ -23,7 +24,7 @@ function RotaFinanceiro({ children }) {
   const auth = localStorage.getItem('auth')
   if (!auth) return <Navigate to="/login" replace />
   const { perfil } = JSON.parse(auth)
-  return (perfil === 'admin' || perfil === 'contador') ? children : <Navigate to="/agenda" replace />
+  return (perfil === 'admin' || perfil === 'contador' || perfil === 'demo') ? children : <Navigate to="/agenda" replace />
 }
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
       <Route path="/financeiro"                  element={<RotaFinanceiro><Financeiro /></RotaFinanceiro>} />
       <Route path="/configuracoes"               element={<RotaAdmin><Configuracoes /></RotaAdmin>} />
       <Route path="/importar-ficha"              element={<RotaProtegida><ImportarFicha /></RotaProtegida>} />
+      <Route path="/dashboard"                   element={<RotaProtegida><Dashboard /></RotaProtegida>} />
       <Route path="*"                            element={<Navigate to="/agenda" replace />} />
     </Routes>
   )
