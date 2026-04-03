@@ -6,7 +6,6 @@ const PERFIS = [
   { value: 'admin',    label: 'Administrador', desc: 'Acesso total ao sistema' },
   { value: 'clinica',  label: 'Clínica',       desc: 'Agenda e pacientes' },
   { value: 'contador', label: 'Contador',       desc: 'Somente financeiro' },
-  { value: 'demo',     label: 'Demo',           desc: 'Visualização completa sem configurações' },
 ]
 
 const VAZIO = { usuario: '', senha: '', nome: '', perfil: 'clinica', ativo: true }
